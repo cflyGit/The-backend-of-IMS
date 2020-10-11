@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.ims.dao.TutorDao">
+    <select id="findByAcademy" resultType="Tutor" parameterType="String">
+        select * from tutor where academy = #{academy}
+    </select>
+
+    <select id="findById" resultType="Tutor" parameterType="long">
+        select * from tutor where tutor_id = #{id}
+    </select>
+
+    <select id="findByName" resultType="Tutor" parameterType="long">
+        select * from tutor where name = #{name}
+    </select>
+
+    <select id="findByPhone" resultType="Tutor" parameterType="long">
+        select * from tutor where phone = #{phone}
+    </select>
+
+    <select id="findByQQ" resultType="Tutor" parameterType="long">
+        select * from tutor where qq = #{qq}
+    </select>
+
+    <select id="findByWechat" resultType="Tutor" parameterType="long">
+        select * from tutor where wechat = #{wechat}
+    </select>
+
+    <select id="findByEmail" resultType="Tutor" parameterType="long">
+        select * from tutor where email = #{email}
+    </select>
+
+    <select id="findByAge" resultType="Tutor" parameterType="int">
+        select * from tutor where age = #{age}
+    </select>
+
+    <insert id="insert" parameterType="Tutor">
+        insert into tutor (tutor_id, name, password, academy, age, phone, qq, wechat, email, register_time)
+                    values(#{tutor_id}, #{name}, #{password}, #{academy}, #{age}, #{phone}, #{qq}, #{wechat}, #{email}, #{register_time})
+    </insert>
+
+    <delete id="deleteOne" parameterType="long">
+        delete from tutor where tutor_id = #{id}
+    </delete>
+
+    <update id="update" parameterType="Tutor">
+        update tutor set name=#{name}, academy=#{academy}, age=#{age}, phone=#{phone}, qq=#{qq}, wechat=#{wechat}, email=#{email}
+        where tutor_id=#{tutor_id}
+    </update>
+</mapper>
