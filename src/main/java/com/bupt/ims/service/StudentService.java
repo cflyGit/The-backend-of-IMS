@@ -8,11 +8,13 @@ import java.util.List;
 public interface StudentService {
     int insert(Student student);
 
+    int deleteOne(long id);
+
     int update(Student student);
 
     Student findById(long id);
 
-    Student findByName(String name);
+    List<Student> findByName(String name);
 
     List<Student> findByAcademy(String academy);
 

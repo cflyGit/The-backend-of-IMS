@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.ims.dao.AuditDao">
+    <insert id="insert" parameterType="Audit">
+        insert into audit (project_id) values(#{project_id});
+    </insert>
+
+    <update id="update">
+        update audit
+        <trim prefix="set" suffixOverrides=",">
+            <if test="application_comments!=null and application_reviewer!=null">
+                application_comments=#{application_comments},
+                application_reviewer=#{application_reviewer}
+            </if>
+            <if test="audit_comments!=null and audit_reviewer!=null">
+                audit_comments=#{audit_comments},
+                audit_reviewer=#{audit_reviewer}
+            </if>
+            <if test="signed_comments!=null and signed_reviewer!=null">
+                signed_comments=#{signed_comments},
+                signed_reviewer=#{signed_reviewer}
+            </if>
+            <if test="publish_comments!=null and publish_reviewer!=null">
+                publish_comments=#{publish_comments},
+                publish_reviewer=#{publish_reviewer}
+            </if>
+            <if test="finished_comments!=null and finished_reviewer!=null">
+                finished_comments=#{finished_comments},
+                finished_reviewer=#{finished_reviewer}
+            </if>
+        </trim>
+        where project_id=#{project_id}
+    </update>
+
+    <select id="findById" resultType="Audit" parameterType="long">
+        select * from audit where project_id=#{id};
+    </select>
+</mapper>

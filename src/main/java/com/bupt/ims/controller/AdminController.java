@@ -3,7 +3,10 @@ package com.bupt.ims.controller;
 import com.bupt.ims.common.lang.Result;
 import com.bupt.ims.dto.LoginDto;
 import com.bupt.ims.entity.Admin;
+import com.bupt.ims.entity.Audit;
 import com.bupt.ims.service.AdminService;
+import com.bupt.ims.service.AuditService;
+import com.bupt.ims.service.ProjectService;
 import com.bupt.ims.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +20,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private TutorService tutorService;
 
     @GetMapping("index")
     public String index() {

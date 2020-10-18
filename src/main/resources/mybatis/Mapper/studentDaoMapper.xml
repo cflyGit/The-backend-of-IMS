@@ -8,6 +8,10 @@
         where student_id=#{student_id}
     </update>
 
+    <delete id="deleteOne" parameterType="long">
+        delete from student where student_id=#{id}
+    </delete>
+
     <insert id="insert" parameterType="Student">
         insert into student (student_id, name, password, academy, tutor, age, phone, qq, wechat, email, register_time)
          values(#{student_id}, #{name}, #{password}, #{academy}, #{tutor}, #{age}, #{phone}, #{qq}, #{wechat}, #{email}, #{register_time})

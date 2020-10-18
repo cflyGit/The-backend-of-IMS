@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.ims.dao.BaseDao">
+    <insert id="insert" parameterType="Base">
+        insert into base (name, phone, address, register_time) values(#{name}, #{phone}, #{address}, #{register_time});
+    </insert>
+
+    <delete id="deleteOne" parameterType="long">
+        delete from base where base_id=#{id};
+    </delete>
+
+    <update id="update" parameterType="Base">
+        update base
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="phone!=null">phone=#{phone},</if>
+            <if test="address!=null">address=#{address},</if>
+        </trim>
+        where base_id=#{base_id};
+    </update>
+
+    <select id="findByName" resultType="Base" parameterType="String">
+        select * from base where name=#{name};
+    </select>
+</mapper>

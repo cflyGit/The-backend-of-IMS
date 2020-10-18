@@ -20,6 +20,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public int deleteOne(long id) {
+        return studentDao.deleteOne(id);
+    }
+
+    @Override
     public int update(Student student) {
         return studentDao.update(student);
     }
@@ -30,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findByName(String name) {
+    public List<Student> findByName(String name) {
         return studentDao.findByName(name);
     }
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.ims.dao.ProjectDao">
+    <insert id="insert" parameterType="Project">
+        <selectKey resultType="INTEGER" order="AFTER" keyProperty="project_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into project (name, base, leader, address, number, recorded, tags, info, file, application_time, audit_time, signed_time, publish_time, finished_time, status)
+            values(#{name}, #{base}, #{leader}, #{address}, #{number}, #{recorded},#{tags}, #{info}, #{file}, #{application_time}, #{audit_time}, #{signed_time}, #{publish_time}, #{finished_time}, #{status})
+    </insert>
+
+    <select id="findById"  resultType="Project" parameterType="long">
+        select * from project where project_id=#{project_id};
+    </select>
+
+    <select id="findByName" resultType="Project" parameterType="String">
+        select * from project where name=#{name}
+    </select>
+
+    <select id="findByStatus" resultType="Project" parameterType="int">
+        select * from project where status=#{status}
+    </select>
+
+    <select id="findByTime" resultType="Project">
+        select * from project where
+        <if test="start!=null or end!=null">
+            <if test="status=='application'">
+                application_time
+            </if>
+            <if test="status=='audit'">
+                audit_time
+            </if>
+            <if test="status=='singed'">
+                singed_time
+            </if>
+            <if test="status=='publish'">
+                publish_time
+            </if>
+            <if test="status=='finish'">
+                finished_time
+            </if>
+
+            <if test="start!=null and end==null">
+                &gt; #{start}
+            </if>
+            <if test="start==null and end!=null">
+                &lt; #{end}
+            </if>
+            <if test="start!=null and end !=null">
+                between #{start} and #{end}
+            </if>
+        </if>
+    </select>
+
+    <update id="update" parameterType="Project">
+        update project
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="base!=null">base=#{base},</if>
+            <if test="leader!=null">leader=#{leader},</if>
+            <if test="address!=null">address=#{address},</if>
+            <if test="number!=null">number=#{number},</if>
+            <if test="recorded!=null">recorded=#{recorded},</if>
+            <if test="info!=null">info=#{info},</if>
+            <if test="file!=null">file=#{file},</if>
+            <if test="application_time!=null">application_time=#{application_time},</if>
+            <if test="audit_time!=null">audit_time=#{audit_time},</if>
+            <if test="signed_time!=null">signed_time=#{signed_time},</if>
+            <if test="publish_time!=null">publish_time=#{publish_time},</if>
+            <if test="finished_time!=null">finished_time=#{finished_time},</if>
+            <if test="status!=null">status=#{status}</if>
+        </trim>
+        where project_id=#{project_id}
+    </update>
+</mapper>

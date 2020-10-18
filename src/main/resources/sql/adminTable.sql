@@ -4,7 +4,7 @@ create table admin(
     password varchar(20) not null,
     email varchar(64),
     primary key(admin_id)
-)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 测试
 insert into admin(admin_id, name, password, email)

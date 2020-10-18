@@ -2,7 +2,6 @@ package com.bupt.ims.controller;
 
 import com.bupt.ims.common.lang.Result;
 import com.bupt.ims.entity.Student;
-import com.bupt.ims.entity.Tutor;
 import com.bupt.ims.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,12 @@ public class StudentController {
         return checkRes(studentService.insert(student) > 0, "提交失败，请稍后再试");
     }
 
+    @GetMapping("delete/{id}")
+    @ResponseBody
+    public Result delete(@PathVariable("id") long id) {
+        return checkRes(studentService.deleteOne(id) > 0, "删除失败，请稍后重试");
+    }
+
     @GetMapping("findById/{id}")
     @ResponseBody
     public Result findById(@PathVariable("id") long id) {
@@ -30,8 +35,40 @@ public class StudentController {
 
     @GetMapping("findByAge/{age}")
     @ResponseBody
-    public Result findById(@PathVariable("age") int age) {
+    public Result findByAge(@PathVariable("age") int age) {
         return checkRes(studentService.findByAge(age));
+    }
+
+    @GetMapping("findByName/{name}")
+    @ResponseBody
+    public Result findByName(@PathVariable("name") String name) {
+        List<Student> students = studentService.findByName(name);
+        return checkRes(students);
+    }
+
+    @GetMapping("findByAcademy/{academy}")
+    @ResponseBody
+    public Result findByAcademy(@PathVariable("academy") String academy) {
+        List<Student> students = studentService.findByAcademy(academy);
+        return checkRes(students);
+    }
+
+    @GetMapping("findByPhone/{phone}")
+    @ResponseBody
+    public Result findByPhone(@PathVariable("phone") String phone) {
+        return checkRes(studentService.findByPhone(phone));
+    }
+
+    @GetMapping("findByQQ/{qq}")
+    @ResponseBody
+    public Result findByQQ(@PathVariable("qq") String qq) {
+        return checkRes(studentService.findByQQ(qq));
+    }
+
+    @GetMapping("findByEmail/{email")
+    @ResponseBody
+    public Result findByEmail(@PathVariable("email") String email) {
+        return checkRes(studentService.findByEmail(email));
     }
 
     @PostMapping("update")

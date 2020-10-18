@@ -35,29 +35,47 @@ public class TutorController {
 
     @GetMapping("findById/{id}")
     @ResponseBody
-    public Result getById(@PathVariable("id") long id) {
+    public Result findById(@PathVariable("id") long id) {
         return checkRes(tutorService.findById(id));
     }
 
     @GetMapping("findByName/{name}")
     @ResponseBody
-    public Result getByName(@PathVariable("name") String name) {
+    public Result findByName(@PathVariable("name") String name) {
         List<Tutor> tutors = tutorService.findByName(name);
         return checkRes(tutors);
     }
 
     @GetMapping("findByAcademy/{academy}")
     @ResponseBody
-    public Result getByAcademy(@PathVariable("academy") String academy) {
+    public Result findByAcademy(@PathVariable("academy") String academy) {
         List<Tutor> tutors = tutorService.findByAcademy(academy);
         return checkRes(tutors);
     }
 
     @GetMapping("findByAge/{age}")
     @ResponseBody
-    public Result getByAge(@PathVariable("age") int age) {
+    public Result findByAge(@PathVariable("age") int age) {
         List<Tutor> tutors = tutorService.findByAge(age);
         return checkRes(tutors);
+    }
+
+    @GetMapping("findByPhone/{phone}")
+    @ResponseBody
+    public Result findByPhone(@PathVariable("phone") String phone) {
+        return checkRes(tutorService.findByPhone(phone));
+    }
+
+    @GetMapping("findByQQ/{qq}")
+    @ResponseBody
+    public Result findByQQ(@PathVariable("qq") String qq) {
+        return checkRes(tutorService.findByQQ(qq));
+    }
+
+    @GetMapping("findByEmail/{email")
+    @ResponseBody
+    public Result findByEmail(@PathVariable("email") String email) {
+        return checkRes(tutorService.findByEmail(email));
     }
 
     private Result checkRes(List<Tutor> tutors) {
