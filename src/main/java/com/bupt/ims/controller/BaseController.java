@@ -1,7 +1,11 @@
 package com.bupt.ims.controller;
 
+import com.bupt.ims.common.lang.JsonResult;
 import com.bupt.ims.common.lang.Result;
+import com.bupt.ims.common.lang.ResultCode;
+import com.bupt.ims.common.lang.ResultTool;
 import com.bupt.ims.entity.Base;
+import com.bupt.ims.entity.Tutor;
 import com.bupt.ims.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,46 +20,46 @@ public class BaseController {
 
     @PostMapping("insert")
     @ResponseBody
-    public Result insert(@RequestBody Base base){
-        return checkRes(baseService.insert(base)>0, "提交失败，请稍后再试！");
+    public JsonResult insert(@RequestBody Base base){
+        return checkRes(baseService.insert(base), ResultCode.UPLOAD_ERROR);
     }
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public Result delete(@PathVariable("id") long id){
-        return checkRes(baseService.deleteOne(id) > 0, "删除失败，请稍后再试");
+    public JsonResult delete(@PathVariable("id") String id){
+        return checkRes(baseService.deleteOne(id), ResultCode.DELETE_ERROR);
     }
 
     @PostMapping("update")
     @ResponseBody
-    public Result update(@RequestBody Base base) {
-        return checkRes(baseService.update(base)>0, "修改失败，请稍后再试！");
+    public JsonResult update(@RequestBody Base base) {
+        return checkRes(baseService.update(base)>0, ResultCode.UPDATE_ERROR);
     }
 
     @GetMapping("findByName/{name}")
     @ResponseBody
-    public Result findByName(@PathVariable("name") String name) {
-        return checkRes(baseService.findByName(name));
+    public JsonResult findByName(@PathVariable("name") String name) {
+        return checkRes(baseService.findByName(name), ResultCode.QUERY_EMPTY);
     }
 
-    private Result checkRes(List<Base> bases) {
+    private JsonResult checkRes(List<Base> bases, ResultCode rc) {
         if (bases.size() > 0) {
-            return Result.success(bases);
+            return ResultTool.success(bases);
         }
-        return Result.fail("无");
+        return ResultTool.fail(rc);
     }
 
-    private Result checkRes(boolean flag, String msg) {
+    private JsonResult checkRes(boolean flag, ResultCode rc) {
         if (flag) {
-            return Result.success(null);
+            return ResultTool.success(null);
         }
-        return Result.fail(msg);
+        return ResultTool.fail(rc);
     }
 
-    private Result checkRes(Base base) {
-        if (base != null) {
-            return Result.success(base);
+    private JsonResult checkRes(Base base, ResultCode rc) {
+        if (base!= null) {
+            return ResultTool.success(base);
         }
-        return Result.fail("无查询结果");
+        return ResultTool.fail(rc);
     }
 }

@@ -1,5 +1,6 @@
 package com.bupt.ims.service;
 
+import com.bupt.ims.common.lang.JsonResult;
 import com.bupt.ims.common.lang.Result;
 import com.bupt.ims.entity.Admin;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface AdminService {
 
-    boolean login(Long id, String password);
+    boolean login(String id, String password);
 
-    Result account2DataBase(MultipartFile file, String entity) throws IOException;
+    JsonResult account2DataBase(MultipartFile file, String entity) throws IOException;
 }

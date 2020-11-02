@@ -8,11 +8,11 @@
         select * from tutor where academy = #{academy}
     </select>
 
-    <select id="findById" resultType="Tutor" parameterType="long">
+    <select id="findById" resultType="Tutor" parameterType="String">
         select * from tutor where tutor_id = #{id}
     </select>
 
-    <select id="findByName" resultType="Tutor" parameterType="long">
+    <select id="findByName" resultType="Tutor" parameterType="String">
         select * from tutor where name = #{name}
     </select>
 
@@ -37,11 +37,11 @@
     </select>
 
     <insert id="insert" parameterType="Tutor">
-        insert into tutor (tutor_id, name, password, academy, age, phone, qq, wechat, email, register_time)
-                    values(#{tutor_id}, #{name}, #{password}, #{academy}, #{age}, #{phone}, #{qq}, #{wechat}, #{email}, #{register_time})
+        insert into tutor (tutor_id, name, academy, age, phone, qq, wechat, email, register_time)
+                    values(#{tutor_id}, #{name}, #{academy}, #{age}, #{phone}, #{qq}, #{wechat}, #{email}, #{register_time})
     </insert>
 
-    <delete id="deleteOne" parameterType="long">
+    <delete id="deleteOne" parameterType="String">
         delete from tutor where tutor_id = #{id}
     </delete>
 

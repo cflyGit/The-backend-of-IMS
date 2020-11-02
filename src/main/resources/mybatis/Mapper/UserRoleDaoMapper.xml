@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.ims.dao.UserRoleDao">
+    <insert id="insert" parameterType="UserRole">
+        insert into user_role (username, role_id) values(#{username}, #{role_id})
+    </insert>
+
+    <select id="findByUser" parameterType="String" resultType="UserRole">
+        select * from user_role where username = #{username}
+    </select>
+
+    <delete id="deleteById" parameterType="String" >
+        delete from user_role where username=#{id}
+    </delete>
+</mapper>

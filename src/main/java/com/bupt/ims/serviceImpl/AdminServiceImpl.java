@@ -1,15 +1,13 @@
 package com.bupt.ims.serviceImpl;
 
-import com.bupt.ims.common.lang.Result;
+import com.bupt.ims.common.lang.JsonResult;
+import com.bupt.ims.common.lang.ResultCode;
+import com.bupt.ims.common.lang.ResultTool;
 import com.bupt.ims.common.util.Excel2Entity;
 import com.bupt.ims.common.util.FileManagement;
 import com.bupt.ims.dao.AdminDao;
-import com.bupt.ims.entity.Admin;
-import com.bupt.ims.entity.Student;
-import com.bupt.ims.entity.Tutor;
-import com.bupt.ims.service.AdminService;
-import com.bupt.ims.service.StudentService;
-import com.bupt.ims.service.TutorService;
+import com.bupt.ims.entity.*;
+import com.bupt.ims.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,11 +28,14 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private BaseService baseService;
+
     @Value("${entity.package}")
     private String entity_package;
 
     @Override
-    public boolean login(Long id, String password) {
+    public boolean login(String id, String password) {
         Admin _admin = adminDao.queryById(id);
         System.out.println(_admin);
         if (_admin != null && _admin.getPassword().equals(password)) {
@@ -44,33 +45,33 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result account2DataBase(MultipartFile file, String entity){
+    public JsonResult account2DataBase(MultipartFile file, String entity){
         FileManagement fm = new FileManagement();
 
         String msg = "上传失败，请稍后再试";
         if (file == null) {
-            return Result.fail(msg);
+            return ResultTool.fail();
         }
         String fileName = file.getOriginalFilename().toLowerCase();
         String root = fm.mkdir("uploadFile") + File.separator + fileName;
         if (!(fileName.endsWith(".xlsx") || fileName.endsWith((".xls")))) {
-            return Result.fail("文件格式不支持，请上传xls或xlsx文件");
+            return ResultTool.fail(ResultCode.FILE_FORMAT_ERROR);
         }
 
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(root), false))){
             out.write(file.getBytes());
             out.flush();
         }catch (FileNotFoundException e) {
-            return Result.fail("上传失败，文件不存在");
+            return ResultTool.fail();
         }catch (IOException e) {
-            return Result.fail(msg);
+            return ResultTool.fail();
         }
 
         List<Integer> errorLine = Excel2DataBase(root, entity);
         if (errorLine == null) {
-            return Result.success(null);
+            return ResultTool.success();
         }
-        return Result.success(400, "错误行数", errorLine);
+        return ResultTool.fail(ResultCode.FILE_ERROR_LINE, errorLine);
     }
 
     private List<Integer> Excel2DataBase(String file, String entity) {
@@ -91,12 +92,14 @@ public class AdminServiceImpl implements AdminService {
             return null;
     }
 
-    private boolean toSql(String entity, Object object) {
+    private boolean toSql(String entity, Object ea) {
         switch (entity) {
             case("Tutor") :
-                return tutorService.insert((Tutor)object) > 0;
+                return tutorService.insert((Tutor)ea);
             case("Student"):
-                return studentService.insert((Student)object) > 0;
+                return studentService.insert((Student)ea);
+            case("Base"):
+                return baseService.insert((Base)ea);
             default:
                 return false;
         }

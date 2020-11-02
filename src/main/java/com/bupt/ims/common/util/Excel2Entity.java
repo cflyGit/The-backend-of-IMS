@@ -2,7 +2,6 @@ package com.bupt.ims.common.util;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Excel2Entity<T> {

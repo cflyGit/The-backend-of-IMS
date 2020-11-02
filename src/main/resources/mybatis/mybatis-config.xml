@@ -9,5 +9,16 @@
         <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
+
+<!--        实体bean别名-->
+        <typeAlias type="com.bupt.ims.dao.ProjectDao" alias="project"/>
+        <typeAlias type="com.bupt.ims.dao.BaseDao" alias="base"/>
+        <typeAlias type="com.bupt.ims.dao.StudentDao" alias="student"/>
+        <typeAlias type="com.bupt.ims.dao.ItemListDao" alias="itemList"/>
+        <typeAlias type="com.bupt.ims.dao.AuditDao" alias="audit"/>
+        <typeAlias type="com.bupt.ims.dao.TutorDao" alias="tutor"/>
+        <typeAlias type="com.bupt.ims.dao.UserRoleDao" alias="userRole"/>
+        <typeAlias type="com.bupt.ims.dao.UserDao" alias="user"/>
+        <typeAlias type="com.bupt.ims.dao.RolePermissionDao" alias="userPermission"/>
     </typeAliases>
 </configuration>

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Project implements Serializable {
     private long project_id;
     private String name;
-    private long base;
+    private String base;
     private String leader;
     private String address;
     private int number;
@@ -54,11 +54,11 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public long getBase() {
+    public String getBase() {
         return base;
     }
 
-    public void setBase(long base) {
+    public void setBase(String base) {
         this.base = base;
     }
 

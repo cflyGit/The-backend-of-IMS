@@ -39,14 +39,14 @@ class ImsApplicationTests {
 
     @Test
     void mybatisTest() {
-        Admin admin = adminDao.queryById(Long.valueOf(1000));
+        Admin admin = adminDao.queryById("1000");
         System.out.println(admin);
     }
 
     @Test
     void loginTest() {
         Admin admin = new Admin();
-        admin.setAdmin_id((long) 1000);
+        admin.setAdmin_id("1000");
         admin.setName("admin");
         admin.setPassword("12345");
 
@@ -56,7 +56,7 @@ class ImsApplicationTests {
     @Test
     void tutorTest() {
         Tutor tutor = new Tutor();
-        tutor.setTutor_id((long) 1000);
+        tutor.setTutor_id("1000");
         tutor.setName("Mr.Lin");
         tutor.setAge(23);
         tutor.setPassword("12345");

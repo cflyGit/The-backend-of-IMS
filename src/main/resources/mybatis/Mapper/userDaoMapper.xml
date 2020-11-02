@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.ims.dao.UserDao">
+    <insert id="insert" parameterType="IMSUser">
+        insert into user (username, password) values(#{username}, #{password})
+    </insert>
+
+    <select id="findById" parameterType="String" resultType="IMSUser">
+        select * from user where username = #{username}
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from user where username=#{id}
+    </delete>
+</mapper>

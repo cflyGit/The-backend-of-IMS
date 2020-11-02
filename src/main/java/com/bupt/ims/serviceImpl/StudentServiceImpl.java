@@ -1,27 +1,59 @@
 package com.bupt.ims.serviceImpl;
 
 import com.bupt.ims.dao.StudentDao;
+import com.bupt.ims.dao.UserDao;
+import com.bupt.ims.dao.UserRoleDao;
 import com.bupt.ims.entity.Student;
 import com.bupt.ims.entity.Tutor;
+import com.bupt.ims.entity.IMSUser;
+import com.bupt.ims.entity.UserRole;
 import com.bupt.ims.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
 
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
     @Override
-    public int insert(Student student) {
-        return studentDao.insert(student);
+    public boolean insert(Student student) {
+        IMSUser user = new IMSUser(student.getStudent_id(), BCrypt.hashpw(student.getPassword(), BCrypt.gensalt()));
+//        User user = new User(student.getStudent_id(), student.getPassword());
+        UserRole userRole = new UserRole(user.getUsername(), "Student");
+        int s = 0, u = 0, ur = 0;
+        try {
+            s = studentDao.insert(student);
+            u = userDao.insert(user);
+            ur = userRoleDao.insert(userRole);
+        }catch (Exception e) {
+            return false;
+        }
+        return s > 0 && u > 0 && ur > 0;
     }
 
     @Override
-    public int deleteOne(long id) {
-        return studentDao.deleteOne(id);
+    public boolean deleteOne(String id) {
+        int s = 0, u = 0, ur = 0;
+        try {
+            s = studentDao.deleteOne(id);
+            u = userDao.deleteById(id);
+            ur = userRoleDao.deleteById(id);
+        }catch(Exception e) {
+            return false;
+        }
+        return s > 0 && u > 0 && ur > 0;
     }
 
     @Override
@@ -30,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(long id) {
+    public Student findById(String id) {
         return studentDao.findById(id);
     }
 

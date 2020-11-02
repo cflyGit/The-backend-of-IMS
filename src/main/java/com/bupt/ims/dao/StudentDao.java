@@ -9,11 +9,11 @@ public interface StudentDao {
 
     int insert(Student student);
 
-    int deleteOne(long id);
+    int deleteOne(String id);
 
     int update(Student student);
 
-    Student findById(long id);
+    Student findById(String id);
 
     List<Student> findByName(String name);
 

@@ -1,13 +1,12 @@
 package com.bupt.ims.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class Tutor implements Serializable {
-    private Long tutor_id;
+    private String tutor_id;
     private String name;
     private String password;
     private String academy;
@@ -21,35 +20,11 @@ public class Tutor implements Serializable {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date register_time;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Tutor{" +
-                "tutor_id=" + tutor_id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", academy='" + academy + '\'' +
-                ", age=" + age +
-                ", phone='" + phone + '\'' +
-                ", qq='" + qq + '\'' +
-                ", wechat='" + wechat + '\'' +
-                ", email='" + email + '\'' +
-                ", register_time=" + register_time +
-                '}';
-    }
-
-    public Long getTutor_id() {
+    public String getTutor_id() {
         return tutor_id;
     }
 
-    public void setTutor_id(Long tutor_id) {
+    public void setTutor_id(String tutor_id) {
         this.tutor_id = tutor_id;
     }
 
@@ -59,6 +34,14 @@ public class Tutor implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAcademy() {
@@ -115,5 +98,21 @@ public class Tutor implements Serializable {
 
     public void setRegister_time(Date register_time) {
         this.register_time = register_time;
+    }
+
+    @Override
+    public String toString() {
+        return "Tutor{" +
+                "tutor_id='" + tutor_id + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", academy='" + academy + '\'' +
+                ", age=" + age +
+                ", phone='" + phone + '\'' +
+                ", qq='" + qq + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", email='" + email + '\'' +
+                ", register_time=" + register_time +
+                '}';
     }
 }

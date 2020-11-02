@@ -5,9 +5,9 @@ import com.bupt.ims.entity.Base;
 import java.util.List;
 
 public interface BaseService {
-    int insert(Base base);
+    boolean insert(Base base);
 
-    int deleteOne(long id);
+    boolean deleteOne(String id);
 
     int update(Base base);
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Student implements Serializable {
-    private Long student_id;
+    private String student_id;
     private String name;
     private String password;
     private String academy;
@@ -20,19 +20,11 @@ public class Student implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date register_time;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getStudent_id() {
+    public String getStudent_id() {
         return student_id;
     }
 
-    public void setStudent_id(Long student_id) {
+    public void setStudent_id(String student_id) {
         this.student_id = student_id;
     }
 
@@ -42,6 +34,14 @@ public class Student implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAcademy() {
@@ -111,7 +111,7 @@ public class Student implements Serializable {
     @Override
     public String toString() {
         return "Student{" +
-                "student_id=" + student_id +
+                "student_id='" + student_id + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", academy='" + academy + '\'' +

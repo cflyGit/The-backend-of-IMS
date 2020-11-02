@@ -8,8 +8,8 @@
         <selectKey resultType="INTEGER" order="AFTER" keyProperty="project_id">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into project (name, base, leader, address, number, recorded, tags, info, file, application_time, audit_time, signed_time, publish_time, finished_time, status)
-            values(#{name}, #{base}, #{leader}, #{address}, #{number}, #{recorded},#{tags}, #{info}, #{file}, #{application_time}, #{audit_time}, #{signed_time}, #{publish_time}, #{finished_time}, #{status})
+        insert into project (name, base, leader, address, number, recorded, tags, info, file, application_time, status)
+            values(#{name}, #{base}, #{leader}, #{address}, #{number}, #{recorded},#{tags}, #{info}, #{file}, #{application_time}, #{status})
     </insert>
 
     <select id="findById"  resultType="Project" parameterType="long">

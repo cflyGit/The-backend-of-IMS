@@ -6,13 +6,13 @@ import com.bupt.ims.entity.Tutor;
 import java.util.List;
 
 public interface StudentService {
-    int insert(Student student);
+    boolean insert(Student student);
 
-    int deleteOne(long id);
+    boolean deleteOne(String id);
 
     int update(Student student);
 
-    Student findById(long id);
+    Student findById(String id);
 
     List<Student> findByName(String name);
 

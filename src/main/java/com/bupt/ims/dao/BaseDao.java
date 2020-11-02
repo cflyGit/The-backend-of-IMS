@@ -9,7 +9,7 @@ public interface BaseDao {
 
     int update(Base base);
 
-    int deleteOne(long id);
+    int deleteOne(String id);
 
     List<Base> findByName(String name);
 }

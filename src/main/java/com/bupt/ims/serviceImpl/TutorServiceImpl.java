@@ -1,24 +1,45 @@
 package com.bupt.ims.serviceImpl;
 
 import com.bupt.ims.dao.TutorDao;
+import com.bupt.ims.dao.UserDao;
+import com.bupt.ims.dao.UserRoleDao;
 import com.bupt.ims.entity.Tutor;
+import com.bupt.ims.entity.IMSUser;
+import com.bupt.ims.entity.UserRole;
 import com.bupt.ims.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TutorServiceImpl implements TutorService {
     @Autowired
     private TutorDao tutorDao;
 
+    @Autowired
+    private UserDao userDao;
 
+    @Autowired
+    private UserRoleDao userRoleDao;
 
     @Override
-    public int insert(Tutor tutor) {
-        int res = tutorDao.insert(tutor);
-        return res;
+    public boolean insert(Tutor tutor) {
+        IMSUser user = new IMSUser(tutor.getTutor_id(), BCrypt.hashpw(tutor.getPassword(), BCrypt.gensalt()));
+//        User user = new User(tutor.getTutor_id(), tutor.getPassword());
+        UserRole userRole = new UserRole(tutor.getTutor_id(), "Tutor");
+        int s = 0, u = 0, ur = 0;
+        try {
+            s = tutorDao.insert(tutor);
+            u = userDao.insert(user);
+            ur = userRoleDao.insert(userRole);
+        }catch (Exception e) {
+            return false;
+        }
+        return s > 0 && u > 0 && ur > 0;
     }
 
     @Override
@@ -34,7 +55,7 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
-    public Tutor findById(Long id) {
+    public Tutor findById(String id) {
         Tutor tutor = tutorDao.findById(id);
         return tutor;
     }
@@ -76,7 +97,15 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
-    public int deleteOne(Long id) {
-        return tutorDao.deleteOne(id);
+    public boolean deleteOne(String id) {
+        int t = 0, u = 0, ur = 0;
+        try {
+            t = tutorDao.deleteOne(id);
+            u = userDao.deleteById(id);
+            ur = userRoleDao.deleteById(id);
+        }catch (Exception e) {
+            return false;
+        }
+        return t > 0 && u > 0 && ur > 0;
     }
 }

@@ -5,13 +5,13 @@ import com.bupt.ims.entity.Tutor;
 import java.util.List;
 
 public interface TutorService {
-    int insert(Tutor tutor);
+    boolean insert(Tutor tutor);
 
     int update(Tutor tutor);
 
     List<Tutor> findByAcademy(String academy);
 
-    Tutor findById(Long id);
+    Tutor findById(String id);
 
     List<Tutor> findByName(String name);
 
@@ -25,6 +25,6 @@ public interface TutorService {
 
     List<Tutor> findByAge(int age);
 
-    int deleteOne(Long id);
+    boolean deleteOne(String id);
 
 }

@@ -6,18 +6,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Base implements Serializable {
-    private Long base_id;
+    private String base_id;
     private String name;
+    private String password;
     private String phone;
     private String address;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date register_time;
 
-    public Long getBase_id() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getBase_id() {
         return base_id;
     }
 
-    public void setBase_id(Long base_id) {
+    public void setBase_id(String base_id) {
         this.base_id = base_id;
     }
 
@@ -56,8 +65,9 @@ public class Base implements Serializable {
     @Override
     public String toString() {
         return "Base{" +
-                "base_id=" + base_id +
+                "base_id='" + base_id + '\'' +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", register_time=" + register_time +

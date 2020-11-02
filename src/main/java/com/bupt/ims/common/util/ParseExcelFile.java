@@ -49,12 +49,12 @@ public class ParseExcelFile {
     }
 
     public JSONObject next() {
-        JSONObject json = new JSONObject();
+        JSONObject jsonEntity = new JSONObject();
         for (int i = 0; i < this.colNum; i++) {
-            json.put(this.header.get(i), getCellVal(this.sheet.getRow(offset).getCell(i)));
+                jsonEntity.put(this.header.get(i), getCellVal(this.sheet.getRow(offset).getCell(i)));
         }
         this.offset++;
-        return json;
+        return jsonEntity;
     }
 
     private String getCellVal(Cell cell) {
@@ -64,7 +64,6 @@ public class ParseExcelFile {
                 if (DateUtil.isCellDateFormatted(cell)) { // 日期格式
 
                     SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                    str = fmt.format(cell.getStringCellValue());
                     str = "";
                 } else { // 数字格式
                     DecimalFormat df = new DecimalFormat("0");

@@ -12,7 +12,7 @@ public interface TutorDao  {
 
     List<Tutor> findByAcademy(String Academy);
 
-    Tutor findById(Long id);
+    Tutor findById(String id);
 
     List<Tutor> findByName(String name);
 
@@ -26,5 +26,5 @@ public interface TutorDao  {
 
     List<Tutor> findByAge(int age);
 
-    int deleteOne(Long id);
+    int deleteOne(String id);
 }
