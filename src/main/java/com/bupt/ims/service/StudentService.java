@@ -1,7 +1,11 @@
 package com.bupt.ims.service;
 
+import com.bupt.ims.common.lang.JsonResult;
+import com.bupt.ims.dto.IntershipProject;
+import com.bupt.ims.dto.MyInternship;
 import com.bupt.ims.entity.Student;
 import com.bupt.ims.entity.Tutor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,4 +33,14 @@ public interface StudentService {
     Student findByWechat(String wechat);
 
     Student findByEmail(String email);
+
+    boolean applyItem(long id, String file);
+
+    List<MyInternship> getInternships();
+
+    JsonResult uploadCV(MultipartFile file);
+
+    JsonResult getInternshipAudit();
+
+    JsonResult auditAgree(long order_id, String actor);
 }

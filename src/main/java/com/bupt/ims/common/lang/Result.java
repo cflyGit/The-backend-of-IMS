@@ -1,6 +1,7 @@
 package com.bupt.ims.common.lang;
 
 import lombok.Data;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 
 import java.io.Serializable;
 

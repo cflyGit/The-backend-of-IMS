@@ -9,6 +9,10 @@ public interface ItemListDao {
 
     int update(ItemList itemList);
 
+    int findBy2Id(long project_id, long student_id);
+
+    ItemList findByOrderId(long order_id);
+
     List<ItemList> findByProjectId(long id);
 
     List<ItemList> findByInternsId(long id);

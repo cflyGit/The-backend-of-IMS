@@ -18,5 +18,9 @@ public interface ProjectDao {
 
     List<Project> findByStatus(int status);
 
+    List<Project> findByBaseId(String base_id);
+
+    List<Project> findByStatusIn4(int status, int size);
+
     List<Project> findByTime(@Param("start") Date start, @Param("end") Date end, @Param("status") String status);
 }

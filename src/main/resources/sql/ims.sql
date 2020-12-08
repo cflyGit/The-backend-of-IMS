@@ -131,5 +131,18 @@ create table audit(
     primary key(project_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- 实习申请单
+create table itemList(
+    order_id bigint(10) auto_increment not null,
+    project_id bigint(10) not null,
+    student_id bigint(10) not null,
+    file varchar(255),
+    time timestamp null,
+    status int,
+    school_audit int,
+    base_audit int,
+    tutor1_audit int,
+    tutor2_audit int,
+    primary key(order_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

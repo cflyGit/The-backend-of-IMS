@@ -6,6 +6,8 @@ import com.bupt.ims.entity.Project;
 import com.bupt.ims.service.AuditService;
 import com.bupt.ims.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,6 +28,8 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public int insert(Project project) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        project.setBase(authentication.getName());
         if (projectDao.insert(project) > 0) {
             Audit audit = new Audit();
             audit.setProject_id(project.getProject_id());
@@ -51,8 +55,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> findByBase(String base_id) {
+        return projectDao.findByBaseId(base_id);
+    }
+
+    @Override
     public List<Project> findByStatus(int status) {
         return projectDao.findByStatus(status);
+    }
+
+    @Override
+    public List<Project> findByStatus(int status, int size) {
+        return projectDao.findByStatusIn4(status, size);
     }
 
     @Override

@@ -1,10 +1,9 @@
 package com.bupt.ims.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bupt.ims.common.lang.JsonResult;
-import com.bupt.ims.common.lang.Result;
 import com.bupt.ims.common.lang.ResultCode;
 import com.bupt.ims.common.lang.ResultTool;
+import com.bupt.ims.dto.IntershipProject;
 import com.bupt.ims.entity.ItemList;
 import com.bupt.ims.service.ItemListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +57,23 @@ public class ItemListController {
         return ResultTool.fail(ResultCode.QUERY_EMPTY);
     }
 
+    @GetMapping("findByName/{name}")
+    @ResponseBody
+    public JsonResult findByInternsName(@PathVariable("name") String name) {
+        List<IntershipProject> intershipProjectList = itemListService.findByInternsName(name);
+        if (intershipProjectList != null) {
+            return ResultTool.success(intershipProjectList);
+        }
+        return ResultTool.fail(ResultCode.QUERY_EMPTY);
+    }
+
     @GetMapping("getItemList/{status}")
     @ResponseBody
     public JsonResult getItemList(@PathVariable("status") int status) {
-
-        return null;
+        List<IntershipProject> intershipProjectList = itemListService.getItemList(status);
+        if (intershipProjectList != null) {
+            return ResultTool.success(intershipProjectList);
+        }
+        return ResultTool.fail(ResultCode.QUERY_EMPTY);
     }
 }

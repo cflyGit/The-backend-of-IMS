@@ -16,6 +16,10 @@
         select * from project where project_id=#{project_id};
     </select>
 
+    <select id="findByBaseId"  resultType="Project" parameterType="String">
+        select * from project where base=#{base_id};
+    </select>
+
     <select id="findByName" resultType="Project" parameterType="String">
         select * from project where name=#{name}
     </select>
@@ -23,6 +27,10 @@
     <select id="findByStatus" resultType="Project" parameterType="int">
         select * from project where status=#{status}
     </select>
+
+    <select id="findByStatusIn4" resultType="Project" parameterType="int">
+            select * from project where status=#{status} limit 0, #{size};
+        </select>
 
     <select id="findByTime" resultType="Project">
         select * from project where

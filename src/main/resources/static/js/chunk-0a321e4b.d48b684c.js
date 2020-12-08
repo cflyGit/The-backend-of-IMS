@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-0a321e4b"],{"0e3e":function(t,e,n){},"565f":function(t,e,n){"use strict";var a=n("0e3e"),u=n.n(a);u.a},"5f79":function(t,e,n){"use strict";n.r(e);var a=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"tutor"},[n("router-view")],1)},u=[],c={name:"yan-tutor",components:{}},o=c,r=(n("565f"),n("2877")),s=Object(r["a"])(o,a,u,!1,null,"06b982da",null);e["default"]=s.exports}}]);
+//# sourceMappingURL=chunk-0a321e4b.d48b684c.js.map

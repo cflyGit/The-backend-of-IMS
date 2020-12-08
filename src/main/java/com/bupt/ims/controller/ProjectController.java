@@ -9,6 +9,8 @@ import com.bupt.ims.entity.Project;
 import com.bupt.ims.entity.Student;
 import com.bupt.ims.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +51,17 @@ public class ProjectController {
     @ResponseBody
     public JsonResult findByStatus(@PathVariable("status") int status){
         return checkRes(projectService.findByStatus(status), ResultCode.QUERY_EMPTY);
+    }
+
+    @GetMapping("getProjects")
+    @ResponseBody
+    public JsonResult getProjects() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Project> projectList = projectService.findByBase(authentication.getName());
+        if (projectList.size() > 0) {
+            return ResultTool.success(projectList);
+        }
+        return ResultTool.fail(ResultCode.COMMON_FAIL);
     }
 
     private JsonResult checkRes(List<Project> projects, ResultCode rc) {

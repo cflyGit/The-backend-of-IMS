@@ -1,7 +1,9 @@
 package com.bupt.ims.serviceImpl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bupt.ims.dao.ItemListDao;
+import com.bupt.ims.dto.InternshipAudit;
+import com.bupt.ims.dto.IntershipProject;
+import com.bupt.ims.entity._InternshipAudit;
 import com.bupt.ims.entity.ItemList;
 import com.bupt.ims.entity.Project;
 import com.bupt.ims.service.ItemListService;
@@ -35,6 +37,16 @@ public class ItemListServiceImpl implements ItemListService {
     }
 
     @Override
+    public int findBy2Id(long project_id, long student_id) {
+        return itemListDao.findBy2Id(project_id, student_id);
+    }
+
+    @Override
+    public ItemList findByOrderId(long order_id) {
+        return itemListDao.findByOrderId(order_id);
+    }
+
+    @Override
     public List<ItemList> findByProjectId(long id) {
         return itemListDao.findByProjectId(id);
     }
@@ -42,6 +54,19 @@ public class ItemListServiceImpl implements ItemListService {
     @Override
     public List<ItemList> findByInternsId(long id) {
         return itemListDao.findByInternsId(id);
+    }
+
+    @Override
+    public List<IntershipProject> findByInternsName(String name) {
+        List<Project> projects = projectService.findByName(name);
+        List<IntershipProject> intershipProjectList = new ArrayList<>();
+        for (Project p : projects) {
+            if (p.getStatus() > 2) {
+                intershipProjectList.add(new IntershipProject(p));
+            }
+        }
+
+        return intershipProjectList;
     }
 
     @Override
@@ -55,18 +80,39 @@ public class ItemListServiceImpl implements ItemListService {
     }
 
     @Override
-    public JSONObject getItemList(int status) {
-        List<JSONObject> jsons = new ArrayList<>();
+    public List<IntershipProject> getItemList(int status) {
         List<Project> projects = projectService.findByStatus(status);
+        List<IntershipProject> intershipProjectList = new ArrayList<>();
         for (Project p : projects) {
-            JSONObject json = new JSONObject();
-            long project_id = p.getProject_id();
-            List<ItemList> itemList = itemListDao.findByProjectId(project_id);
-            StringBuffer interns = null;
-            for (ItemList item : itemList) {
-            }
-            json.put("project_id", project_id);
+            intershipProjectList.add(new IntershipProject(p));
         }
-        return null;
+        return intershipProjectList;
     }
+
+    @Override
+    public List<InternshipAudit> getItemListAudit(int status) {
+        List<Project> projects = projectService.findByStatus(status);
+        return getILA(projects);
+    }
+
+    @Override
+    public List<InternshipAudit> getItemListAudit(String base_id) {
+        List<Project> projects = projectService.findByBase(base_id);
+        return getILA(projects);
+    }
+
+    private List<InternshipAudit> getILA(List<Project> projects) {
+        List<InternshipAudit> internshipAuditList = new ArrayList<>();
+        System.out.println("projects:" + projects);
+        for (Project p : projects) {
+            List<ItemList> itemListList = itemListDao.findByProjectId(p.getProject_id());
+            System.out.println("itemList:" + itemListList);
+            for (ItemList il : itemListList) {
+                String student_name = studentService.findById(String.valueOf(il.getStudent_id())).getName();
+                internshipAuditList.add(new InternshipAudit(p, il, student_name));
+            }
+        }
+        return internshipAuditList;
+    }
+
 }

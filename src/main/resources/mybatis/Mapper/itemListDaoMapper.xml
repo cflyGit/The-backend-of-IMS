@@ -11,20 +11,32 @@
 
     <update id="update" parameterType="ItemList">
         update itemList
-        <trim suffix="set" suffixOverrides=",">
-            <if test="project_id!=null">project_id=#{project_id},</if>
-            <if test="student_id!=null">student_id=#{student_id},</if>
-            <if test="file!=null">file=#{file},</if>
-            <if test="status!=null">status=#{status}</if>
+        <trim prefix="set" suffixOverrides=",">
+            <if test="project_id!=null and project_id!=0">project_id=#{project_id},</if>
+            <if test="student_id!=null and student_id!=0">student_id=#{student_id},</if>
+            <if test="file!=null and file!='null'">file=#{file},</if>
+            <if test="status!=null and status!=0">status=#{status}</if>
+            <if test="school_audit!=null and school_audit!=0">school_audit=#{school_audit}</if>
+            <if test="base_audit!=null and base_audit!=0">base_audit=#{base_audit}</if>
+            <if test="tutor1_audit!=null and tutor1_audit!=0">tutor1_audit=#{tutor1_audit}</if>
+            <if test="tutor2_audit!=null and tutor2_audit!=0">tutor2_audit=#{tutor2_audit}</if>
         </trim>
         where order_id=#{order_id};
     </update>
 
-    <select id="findByProjectId" parameterType="long">
+    <select id="findByOrderId" resultType="ItemList" parameterType="long">
+        select * from ItemList where order_id=#{order_id}
+    </select>
+
+    <select id="findBy2Id" resultType="int" parameterType="long">
+        select count(*) from ItemList where project_id=#{project_id} and student_id=#{student_id}
+    </select>
+
+    <select id="findByProjectId" resultType="ItemList" parameterType="long">
         select * from itemList where project_id=#{project_id};
     </select>
 
-    <select id="findByInternsId" parameterType="long">
+    <select id="findByInternsId" resultType="ItemList" parameterType="long">
         select * from itemList where student_id=#{student_id};
     </select>
 

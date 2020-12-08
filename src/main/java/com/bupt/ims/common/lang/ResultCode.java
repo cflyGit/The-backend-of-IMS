@@ -1,7 +1,7 @@
 package com.bupt.ims.common.lang;
 
 /**
- * @uthor lyfei
+ * @author lyfei
  * 定义返回码
  * rule：
  * 200: 成功
